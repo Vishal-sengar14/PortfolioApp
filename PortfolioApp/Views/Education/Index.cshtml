@@ -1,0 +1,36 @@
+@model List<Education>
+@{
+    ViewData["Title"] = "Education";
+}
+
+<section class="page-header">
+    <div class="container text-center" data-aos="fade-up">
+        <span class="section-tag">Academic Background</span>
+        <h1>My <span class="text-gradient">Education</span></h1>
+    </div>
+</section>
+
+<section class="section-padding">
+    <div class="container">
+        <div class="timeline">
+            @foreach (var edu in Model)
+            {
+                <div class="timeline-item" data-aos="fade-up">
+                    <div class="timeline-dot timeline-dot-alt"></div>
+                    <div class="timeline-content glass-card">
+                        <div class="d-flex justify-content-between flex-wrap gap-2">
+                            <h5>@edu.Degree</h5>
+                            <span class="timeline-date">@edu.StartYear - @edu.EndYear</span>
+                        </div>
+                        <h6 class="text-gradient">@edu.Institution</h6>
+                        @if (!string.IsNullOrEmpty(edu.CGPA))
+                        {
+                            <p class="mb-1"><strong>CGPA:</strong> @edu.CGPA</p>
+                        }
+                        <p class="text-muted-light mb-0">@edu.Description</p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

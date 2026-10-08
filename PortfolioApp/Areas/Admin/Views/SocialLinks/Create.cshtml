@@ -1,0 +1,19 @@
+@model SocialLink
+@{ ViewData["Title"] = "Add Social Link"; }
+<div class="admin-card">
+    <form asp-action="Create" method="post">
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+        <div class="row g-3">
+            <div class="col-md-4"><label asp-for="PlatformName" class="form-label"></label><input asp-for="PlatformName" class="form-control glass-input" /></div>
+            <div class="col-md-4"><label asp-for="IconClass" class="form-label">Font Awesome Icon Class</label><input asp-for="IconClass" class="form-control glass-input" placeholder="fa-brands fa-github" /></div>
+            <div class="col-md-4"><label asp-for="DisplayOrder" class="form-label"></label><input asp-for="DisplayOrder" type="number" class="form-control glass-input" /></div>
+            <div class="col-12"><label asp-for="Url" class="form-label"></label><input asp-for="Url" class="form-control glass-input" /></div>
+            <div class="col-md-4 d-flex align-items-end"><div class="form-check"><input asp-for="IsActive" class="form-check-input" checked /><label asp-for="IsActive" class="form-check-label"></label></div></div>
+        </div>
+        <div class="mt-4 d-flex gap-2">
+            <button type="submit" class="btn btn-gradient">Save</button>
+            <a asp-action="Index" class="btn btn-outline-glass">Cancel</a>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,71 @@
+@{
+    var siteTitle = ViewData["Title"] != null ? $"{ViewData["Title"]} | Vishal Sengar" : "Vishal Sengar | Software Developer";
+}
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@siteTitle</title>
+    <meta name="description" content="Portfolio of Vishal Sengar, a .NET Full Stack Software Developer with 2 years of experience in ASP.NET Core, C#, SQL Server and Entity Framework Core." />
+    <meta name="author" content="Vishal Sengar" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="@siteTitle" />
+    <meta property="og:description" content="Portfolio of Vishal Sengar, Software Developer." />
+    <meta property="og:type" content="website" />
+
+    <link rel="icon" type="image/png" href="~/images/favicon.png" />
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+    <!-- AOS Animation -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body data-typed-roles="@(ViewBag.TypedRoles ?? "")">
+    <div id="loading-screen">
+        <div class="loader-ring"></div>
+    </div>
+
+    <div id="particles-bg"></div>
+    <div class="custom-cursor"></div>
+    <div class="custom-cursor-dot"></div>
+
+    <div class="scroll-progress-bar"></div>
+
+    @await Html.PartialAsync("_Navbar")
+
+    <main>
+        @if (TempData["ContactSuccess"] != null)
+        {
+            <div class="alert-toast-trigger" data-message="@TempData["ContactSuccess"]"></div>
+        }
+        @RenderBody()
+    </main>
+
+    @await Component.InvokeAsync("Footer")
+
+    <button id="backToTop" class="back-to-top" aria-label="Back to top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.1.0/typed.umd.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.14.5/sweetalert2.all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+
+    <script src="~/js/particles.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

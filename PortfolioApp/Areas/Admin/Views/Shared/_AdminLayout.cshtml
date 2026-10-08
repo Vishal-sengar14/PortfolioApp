@@ -1,0 +1,68 @@
+@{
+    var title = ViewData["Title"] != null ? $"{ViewData["Title"]} | Admin Panel" : "Admin Panel";
+}
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@title</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+</head>
+<body class="admin-body">
+    <div class="admin-wrapper">
+        <aside class="admin-sidebar">
+            <div class="admin-brand">
+                <span>Portfolio<span class="text-gradient">Admin</span></span>
+            </div>
+            <nav class="admin-nav">
+                <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+                <a asp-area="Admin" asp-controller="Profile" asp-action="Index"><i class="fa-solid fa-user"></i> Profile</a>
+                <a asp-area="Admin" asp-controller="Skills" asp-action="Index"><i class="fa-solid fa-code"></i> Skills</a>
+                <a asp-area="Admin" asp-controller="Projects" asp-action="Index"><i class="fa-solid fa-diagram-project"></i> Projects</a>
+                <a asp-area="Admin" asp-controller="Experiences" asp-action="Index"><i class="fa-solid fa-briefcase"></i> Experience</a>
+                <a asp-area="Admin" asp-controller="Education" asp-action="Index"><i class="fa-solid fa-graduation-cap"></i> Education</a>
+                <a asp-area="Admin" asp-controller="Certificates" asp-action="Index"><i class="fa-solid fa-award"></i> Certificates</a>
+                <a asp-area="Admin" asp-controller="Testimonials" asp-action="Index"><i class="fa-solid fa-comment-dots"></i> Testimonials</a>
+                <a asp-area="Admin" asp-controller="SocialLinks" asp-action="Index"><i class="fa-solid fa-share-nodes"></i> Social Links</a>
+                <a asp-area="Admin" asp-controller="Resume" asp-action="Index"><i class="fa-solid fa-file-arrow-up"></i> Resume</a>
+                <a asp-area="Admin" asp-controller="Messages" asp-action="Index"><i class="fa-solid fa-envelope"></i> Messages</a>
+                <hr class="admin-nav-divider" />
+                <a asp-controller="Home" asp-action="Index" asp-area=""><i class="fa-solid fa-house"></i> View Site</a>
+                <a asp-controller="Account" asp-action="Logout" asp-area=""><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+            </nav>
+        </aside>
+
+        <div class="admin-content">
+            <header class="admin-topbar">
+                <button class="sidebar-toggle-btn d-lg-none" id="sidebarToggle"><i class="fa-solid fa-bars"></i></button>
+                <h5 class="mb-0">@ViewData["Title"]</h5>
+                <span class="admin-user"><i class="fa-solid fa-user-circle"></i> @User.Identity?.Name</span>
+            </header>
+
+            <main class="admin-main">
+                @if (TempData["Success"] != null)
+                {
+                    <div class="alert admin-alert admin-alert-success">@TempData["Success"]</div>
+                }
+                @if (TempData["Error"] != null)
+                {
+                    <div class="alert admin-alert admin-alert-danger">@TempData["Error"]</div>
+                }
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.14.5/sweetalert2.all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+    <script src="~/js/admin.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

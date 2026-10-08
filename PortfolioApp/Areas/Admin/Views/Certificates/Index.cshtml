@@ -1,0 +1,31 @@
+@model List<Certificate>
+@{ ViewData["Title"] = "Manage Certificates"; }
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h5 class="mb-0">Certificates</h5>
+    <a asp-action="Create" class="btn btn-gradient"><i class="fa-solid fa-plus"></i> Add Certificate</a>
+</div>
+<div class="admin-card">
+    <div class="table-responsive">
+        <table class="admin-table">
+            <thead><tr><th>Image</th><th>Title</th><th>Issued By</th><th>Issued On</th><th>Actions</th></tr></thead>
+            <tbody>
+                @foreach (var c in Model)
+                {
+                    <tr>
+                        <td>@if (!string.IsNullOrEmpty(c.ImagePath)) { <img src="@c.ImagePath" class="admin-thumb" /> }</td>
+                        <td>@c.Title</td>
+                        <td>@c.IssuedBy</td>
+                        <td>@c.IssuedOn.ToString("MMM yyyy")</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@c.Id" class="btn-admin-icon"><i class="fa-solid fa-pen"></i></a>
+                            <form asp-action="Delete" asp-route-id="@c.Id" method="post" class="d-inline js-confirm-delete">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn-admin-icon danger"><i class="fa-solid fa-trash"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

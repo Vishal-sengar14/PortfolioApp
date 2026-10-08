@@ -1,0 +1,31 @@
+@model Profile
+@{ ViewData["Title"] = "Profile Settings"; }
+<div class="admin-card">
+    <form asp-action="Index" method="post" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="ProfileImagePath" />
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+        @if (!string.IsNullOrEmpty(Model.ProfileImagePath))
+        {
+            <img src="@Model.ProfileImagePath" class="admin-thumb mb-3" style="width:100px;height:100px;border-radius:50%;" />
+        }
+
+        <div class="row g-3">
+            <div class="col-md-6"><label asp-for="FullName" class="form-label"></label><input asp-for="FullName" class="form-control glass-input" /></div>
+            <div class="col-md-6"><label asp-for="Title" class="form-label"></label><input asp-for="Title" class="form-control glass-input" /></div>
+            <div class="col-12"><label asp-for="TypedRoles" class="form-label">Typed.js Rotating Titles (comma separated)</label><input asp-for="TypedRoles" class="form-control glass-input" /></div>
+            <div class="col-12"><label asp-for="Bio" class="form-label"></label><textarea asp-for="Bio" rows="4" class="form-control glass-input"></textarea></div>
+            <div class="col-12"><label asp-for="CareerObjective" class="form-label"></label><textarea asp-for="CareerObjective" rows="3" class="form-control glass-input"></textarea></div>
+            <div class="col-md-6"><label asp-for="Email" class="form-label"></label><input asp-for="Email" class="form-control glass-input" /></div>
+            <div class="col-md-6"><label asp-for="Phone" class="form-label"></label><input asp-for="Phone" class="form-control glass-input" /></div>
+            <div class="col-md-6"><label asp-for="Address" class="form-label"></label><input asp-for="Address" class="form-control glass-input" /></div>
+            <div class="col-md-6"><label asp-for="YearsOfExperience" class="form-label"></label><input asp-for="YearsOfExperience" type="number" class="form-control glass-input" /></div>
+            <div class="col-md-6"><label class="form-label">Profile Photo</label><input type="file" name="photoFile" class="form-control glass-input" accept="image/*" /></div>
+        </div>
+        <div class="mt-4 d-flex gap-2">
+            <button type="submit" class="btn btn-gradient">Save Profile</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,22 @@
+@model Testimonial
+@{ ViewData["Title"] = "Edit Testimonial"; }
+<div class="admin-card">
+    <form asp-action="Edit" asp-route-id="@Model.Id" method="post" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="PhotoPath" />
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+        <div class="row g-3">
+            <div class="col-md-6"><label asp-for="PersonName" class="form-label"></label><input asp-for="PersonName" class="form-control glass-input" /></div>
+            <div class="col-md-6"><label asp-for="Designation" class="form-label"></label><input asp-for="Designation" class="form-control glass-input" /></div>
+            <div class="col-12"><label asp-for="Message" class="form-label"></label><textarea asp-for="Message" rows="3" class="form-control glass-input"></textarea></div>
+            <div class="col-md-4"><label asp-for="Rating" class="form-label"></label><input asp-for="Rating" type="number" min="1" max="5" class="form-control glass-input" /></div>
+            <div class="col-md-4"><label class="form-label">Replace Photo</label><input type="file" name="photoFile" class="form-control glass-input" accept="image/*" /></div>
+            <div class="col-md-4"><label asp-for="DisplayOrder" class="form-label"></label><input asp-for="DisplayOrder" type="number" class="form-control glass-input" /></div>
+        </div>
+        <div class="mt-4 d-flex gap-2">
+            <button type="submit" class="btn btn-gradient">Update</button>
+            <a asp-action="Index" class="btn btn-outline-glass">Cancel</a>
+        </div>
+    </form>
+</div>

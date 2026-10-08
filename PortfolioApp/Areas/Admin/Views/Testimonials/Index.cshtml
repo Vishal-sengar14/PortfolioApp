@@ -1,0 +1,31 @@
+@model List<Testimonial>
+@{ ViewData["Title"] = "Manage Testimonials"; }
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h5 class="mb-0">Testimonials</h5>
+    <a asp-action="Create" class="btn btn-gradient"><i class="fa-solid fa-plus"></i> Add Testimonial</a>
+</div>
+<div class="admin-card">
+    <div class="table-responsive">
+        <table class="admin-table">
+            <thead><tr><th>Photo</th><th>Person</th><th>Rating</th><th>Order</th><th>Actions</th></tr></thead>
+            <tbody>
+                @foreach (var t in Model)
+                {
+                    <tr>
+                        <td>@if (!string.IsNullOrEmpty(t.PhotoPath)) { <img src="@t.PhotoPath" class="admin-thumb" style="border-radius:50%;" /> }</td>
+                        <td>@t.PersonName <br /><small class="text-muted-light">@t.Designation</small></td>
+                        <td>@t.Rating / 5</td>
+                        <td>@t.DisplayOrder</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@t.Id" class="btn-admin-icon"><i class="fa-solid fa-pen"></i></a>
+                            <form asp-action="Delete" asp-route-id="@t.Id" method="post" class="d-inline js-confirm-delete">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn-admin-icon danger"><i class="fa-solid fa-trash"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

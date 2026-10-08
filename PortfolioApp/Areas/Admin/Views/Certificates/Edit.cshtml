@@ -1,0 +1,27 @@
+@model Certificate
+@{ ViewData["Title"] = "Edit Certificate"; }
+<div class="admin-card">
+    <form asp-action="Edit" asp-route-id="@Model.Id" method="post" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="ImagePath" />
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+        @if (!string.IsNullOrEmpty(Model.ImagePath))
+        {
+            <img src="@Model.ImagePath" class="admin-thumb mb-3" style="width:100px;height:100px;" />
+        }
+        <div class="row g-3">
+            <div class="col-md-6"><label asp-for="Title" class="form-label"></label><input asp-for="Title" class="form-control glass-input" /></div>
+            <div class="col-md-6"><label asp-for="IssuedBy" class="form-label"></label><input asp-for="IssuedBy" class="form-control glass-input" /></div>
+            <div class="col-md-6"><label asp-for="IssuedOn" class="form-label"></label><input asp-for="IssuedOn" type="date" class="form-control glass-input" /></div>
+            <div class="col-md-6"><label asp-for="CredentialUrl" class="form-label"></label><input asp-for="CredentialUrl" class="form-control glass-input" /></div>
+            <div class="col-md-6"><label class="form-label">Replace Image</label><input type="file" name="imageFile" class="form-control glass-input" accept="image/*" /></div>
+            <div class="col-md-3"><label asp-for="DisplayOrder" class="form-label"></label><input asp-for="DisplayOrder" type="number" class="form-control glass-input" /></div>
+            <div class="col-md-3 d-flex align-items-end"><div class="form-check"><input asp-for="IsActive" class="form-check-input" /><label asp-for="IsActive" class="form-check-label"></label></div></div>
+        </div>
+        <div class="mt-4 d-flex gap-2">
+            <button type="submit" class="btn btn-gradient">Update</button>
+            <a asp-action="Index" class="btn btn-outline-glass">Cancel</a>
+        </div>
+    </form>
+</div>

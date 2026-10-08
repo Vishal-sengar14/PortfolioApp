@@ -1,0 +1,41 @@
+@model Skill
+@{ ViewData["Title"] = "Add Skill"; }
+
+<div class="admin-card">
+    <form asp-action="Create" method="post">
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label asp-for="Name" class="form-label"></label>
+                <input asp-for="Name" class="form-control glass-input" />
+            </div>
+            <div class="col-md-6">
+                <label asp-for="Category" class="form-label"></label>
+                <select asp-for="Category" class="form-select glass-input" asp-items="Html.GetEnumSelectList<SkillCategory>()"></select>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="ProficiencyLevel" class="form-label"></label>
+                <input asp-for="ProficiencyLevel" type="number" min="0" max="100" class="form-control glass-input" />
+            </div>
+            <div class="col-md-6">
+                <label asp-for="IconClass" class="form-label"></label>
+                <input asp-for="IconClass" class="form-control glass-input" placeholder="fa-solid fa-code" />
+            </div>
+            <div class="col-md-6">
+                <label asp-for="DisplayOrder" class="form-label"></label>
+                <input asp-for="DisplayOrder" type="number" class="form-control glass-input" />
+            </div>
+            <div class="col-md-6 d-flex align-items-end">
+                <div class="form-check">
+                    <input asp-for="IsActive" class="form-check-input" checked />
+                    <label asp-for="IsActive" class="form-check-label"></label>
+                </div>
+            </div>
+        </div>
+        <div class="mt-4 d-flex gap-2">
+            <button type="submit" class="btn btn-gradient">Save Skill</button>
+            <a asp-action="Index" class="btn btn-outline-glass">Cancel</a>
+        </div>
+    </form>
+</div>

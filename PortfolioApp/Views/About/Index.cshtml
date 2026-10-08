@@ -1,0 +1,90 @@
+@model AboutViewModel
+@{
+    ViewData["Title"] = "About Me";
+}
+
+<section class="page-header">
+    <div class="container text-center" data-aos="fade-up">
+        <span class="section-tag">Get To Know Me</span>
+        <h1>About <span class="text-gradient">Me</span></h1>
+    </div>
+</section>
+
+<section class="section-padding">
+    <div class="container">
+        <div class="row g-5 align-items-center mb-5">
+            <div class="col-lg-5" data-aos="fade-right">
+                <img src="@(string.IsNullOrEmpty(Model.Profile?.ProfileImagePath) ? "/images/myimg.jpg" : Model.Profile!.ProfileImagePath)"
+                     class="img-fluid rounded-4 about-img" alt="@Model.Profile?.FullName" />
+            </div>
+            <div class="col-lg-7" data-aos="fade-left">
+                <h2 class="mb-3">I'm <span class="text-gradient">@Model.Profile?.FullName</span>, @Model.Profile?.Title</h2>
+                <p class="text-muted-light">@Model.Profile?.Bio</p>
+
+                <h5 class="mt-4 mb-2">Career Objective</h5>
+                <p class="text-muted-light">@Model.Profile?.CareerObjective</p>
+
+                <div class="row g-3 mt-3">
+                    <div class="col-sm-6"><i class="fa-solid fa-envelope text-gradient-icon"></i>@Model.Profile?.Email</div>
+                    <div class="col-sm-6"><i class="fa-solid fa-phone text-gradient-icon"></i> @Model.Profile?.Phone</div>
+                    <div class="col-sm-6"><i class="fa-solid fa-location-dot text-gradient-icon"></i> @Model.Profile?.Address</div>
+                    <div class="col-sm-6"><i class="fa-solid fa-briefcase text-gradient-icon"></i> @Model.Profile?.YearsOfExperience Years Experience</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-heading text-center" data-aos="fade-up">
+            <span class="section-tag">Journey</span>
+            <h2>My <span class="text-gradient">Timeline</span></h2>
+        </div>
+
+        <div class="timeline">
+            @foreach (var exp in Model.Experiences)
+            {
+                <div class="timeline-item" data-aos="fade-up">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content glass-card">
+                        <span class="timeline-badge">Experience</span>
+                        <h5>@exp.Designation @@ @exp.CompanyName</h5>
+                        <p class="timeline-date">@exp.StartDate.ToString("MMM yyyy") - @(exp.EndDate.HasValue ? exp.EndDate.Value.ToString("MMM yyyy") : "Present")</p>
+                    </div>
+                </div>
+            }
+            @foreach (var edu in Model.Educations)
+            {
+                <div class="timeline-item" data-aos="fade-up">
+                    <div class="timeline-dot timeline-dot-alt"></div>
+                    <div class="timeline-content glass-card">
+                        <span class="timeline-badge timeline-badge-alt">Education</span>
+                        <h5>@edu.Degree, @edu.Institution</h5>
+                        <p class="timeline-date">@edu.StartYear - @edu.EndYear @(string.IsNullOrEmpty(edu.CGPA) ? "" : $"| CGPA: {edu.CGPA}")</p>
+                    </div>
+                </div>
+            }
+        </div>
+
+        @if (Model.Certificates.Any())
+        {
+            <div class="section-heading text-center mt-5" data-aos="fade-up">
+                <span class="section-tag">Achievements</span>
+                <h2>Certificates <span class="text-gradient">& Awards</span></h2>
+            </div>
+            <div class="row g-4">
+                @foreach (var cert in Model.Certificates)
+                {
+                    <div class="col-md-4" data-aos="fade-up">
+                        <div class="glass-card certificate-card">
+                            @if (!string.IsNullOrEmpty(cert.ImagePath))
+                            {
+                                <img src="@cert.ImagePath" alt="@cert.Title" class="img-fluid rounded-3 mb-3" />
+                            }
+                            <h5>@cert.Title</h5>
+                            <p class="text-muted-light mb-1">@cert.IssuedBy</p>
+                            <p class="timeline-date">@cert.IssuedOn.ToString("MMM yyyy")</p>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</section>

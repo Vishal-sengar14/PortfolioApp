@@ -1,0 +1,36 @@
+@model List<Skill>
+@{ ViewData["Title"] = "Manage Skills"; }
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h5 class="mb-0">All Skills</h5>
+    <a asp-action="Create" class="btn btn-gradient"><i class="fa-solid fa-plus"></i> Add Skill</a>
+</div>
+
+<div class="admin-card">
+    <div class="table-responsive">
+        <table class="admin-table">
+            <thead>
+                <tr><th>Name</th><th>Category</th><th>Level</th><th>Order</th><th>Status</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+                @foreach (var s in Model)
+                {
+                    <tr>
+                        <td><i class="@s.IconClass"></i> @s.Name</td>
+                        <td>@s.Category</td>
+                        <td>@s.ProficiencyLevel%</td>
+                        <td>@s.DisplayOrder</td>
+                        <td><span class="badge-status @(s.IsActive ? "read" : "unread")">@(s.IsActive ? "Active" : "Inactive")</span></td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@s.Id" class="btn-admin-icon" title="Edit"><i class="fa-solid fa-pen"></i></a>
+                            <form asp-action="Delete" asp-route-id="@s.Id" method="post" class="d-inline js-confirm-delete">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn-admin-icon danger" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

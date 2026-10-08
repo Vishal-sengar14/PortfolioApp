@@ -1,0 +1,23 @@
+@model Experience
+@{ ViewData["Title"] = "Edit Experience"; }
+<div class="admin-card">
+    <form asp-action="Edit" asp-route-id="@Model.Id" method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="Id" />
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+        <div class="row g-3">
+            <div class="col-md-6"><label asp-for="CompanyName" class="form-label"></label><input asp-for="CompanyName" class="form-control glass-input" /></div>
+            <div class="col-md-6"><label asp-for="Designation" class="form-label"></label><input asp-for="Designation" class="form-control glass-input" /></div>
+            <div class="col-md-6"><label asp-for="StartDate" class="form-label"></label><input asp-for="StartDate" type="date" class="form-control glass-input" /></div>
+            <div class="col-md-6"><label asp-for="EndDate" class="form-label">End Date (leave blank if current)</label><input asp-for="EndDate" type="date" class="form-control glass-input" /></div>
+            <div class="col-12"><label asp-for="Responsibilities" class="form-label"></label><textarea asp-for="Responsibilities" rows="4" class="form-control glass-input"></textarea></div>
+            <div class="col-12"><label asp-for="TechnologiesUsed" class="form-label"></label><input asp-for="TechnologiesUsed" class="form-control glass-input" /></div>
+            <div class="col-md-4"><label asp-for="DisplayOrder" class="form-label"></label><input asp-for="DisplayOrder" type="number" class="form-control glass-input" /></div>
+            <div class="col-md-4 d-flex align-items-end"><div class="form-check"><input asp-for="IsActive" class="form-check-input" /><label asp-for="IsActive" class="form-check-label"></label></div></div>
+        </div>
+        <div class="mt-4 d-flex gap-2">
+            <button type="submit" class="btn btn-gradient">Update</button>
+            <a asp-action="Index" class="btn btn-outline-glass">Cancel</a>
+        </div>
+    </form>
+</div>

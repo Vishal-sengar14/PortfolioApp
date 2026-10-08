@@ -1,0 +1,92 @@
+
+@model ContactViewModel
+@{
+    ViewData["Title"] = "Contact";
+}
+
+<section class="page-header">
+    <div class="container text-center" data-aos="fade-up">
+        <span class="section-tag">Let's Talk</span>
+        <h1>Contact <span class="text-gradient">Me</span></h1>
+    </div>
+</section>
+
+<section class="section-padding">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-7" data-aos="fade-right">
+                <div class="glass-card p-4">
+                    <form asp-controller="Contact" asp-action="Index" method="post" id="contactForm">
+                        @Html.AntiForgeryToken()
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label asp-for="Name" class="form-label"></label>
+                                <input asp-for="Name" class="form-control glass-input" placeholder="Your name" />
+                                <span asp-validation-for="Name" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="Email" class="form-label"></label>
+                                <input asp-for="Email" class="form-control glass-input" placeholder="you@example.com" />
+                                <span asp-validation-for="Email" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="Phone" class="form-label"></label>
+                                <input asp-for="Phone" class="form-control glass-input" placeholder="Optional" />
+                                <span asp-validation-for="Phone" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="Subject" class="form-label"></label>
+                                <input asp-for="Subject" class="form-control glass-input" placeholder="Subject" />
+                                <span asp-validation-for="Subject" class="text-danger small"></span>
+                            </div>
+                            <div class="col-12">
+                                <label asp-for="Message" class="form-label"></label>
+                                <textarea asp-for="Message" rows="5" class="form-control glass-input" placeholder="Write your message..."></textarea>
+                                <span asp-validation-for="Message" class="text-danger small"></span>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Captcha: What is @Model.CaptchaFirstNumber + @Model.CaptchaSecondNumber ?</label>
+                                <input asp-for="CaptchaInput" class="form-control glass-input" placeholder="Enter the answer" />
+                                <span asp-validation-for="CaptchaInput" class="text-danger small"></span>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-gradient mt-4 w-100"><i class="fa-solid fa-paper-plane"></i> Send Message</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-5" data-aos="fade-left">
+                <div class="glass-card p-4 mb-4">
+                    <h5 class="mb-3">Contact Information</h5>
+                    <p><i class="fa-solid fa-envelope text-gradient-icon"></i>sengarvishal39@gmail.com</p>
+                    <p><i class="fa-solid fa-phone text-gradient-icon"></i>+918827533832</p>
+                    <p><i class="fa-solid fa-location-dot text-gradient-icon"></i> India</p>
+                </div>
+                <div class="glass-card p-2 map-wrap">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3714.5!2d75.8577!3d22.7196!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjLCsDQzJzEwLjYiTiA3NcKwNTEnMjcuNyJF!5e0!3m2!1sen!2sin!4v1600000000000"
+                        width="100%" height="300%" style="border:0; border-radius: 16px;" allowfullscreen loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const trigger = document.querySelector('.alert-toast-trigger');
+            if (trigger) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Message Sent!',
+                    text: trigger.dataset.message,
+                    background: '#101425',
+                    color: '#e6e9f5',
+                    confirmButtonColor: '#4f7cff'
+                });
+            }
+        });
+    </script>
+}

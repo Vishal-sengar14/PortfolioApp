@@ -1,0 +1,31 @@
+@model List<Education>
+@{ ViewData["Title"] = "Manage Education"; }
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h5 class="mb-0">Education</h5>
+    <a asp-action="Create" class="btn btn-gradient"><i class="fa-solid fa-plus"></i> Add Education</a>
+</div>
+<div class="admin-card">
+    <div class="table-responsive">
+        <table class="admin-table">
+            <thead><tr><th>Degree</th><th>Institution</th><th>CGPA</th><th>Years</th><th>Actions</th></tr></thead>
+            <tbody>
+                @foreach (var e in Model)
+                {
+                    <tr>
+                        <td>@e.Degree</td>
+                        <td>@e.Institution</td>
+                        <td>@e.CGPA</td>
+                        <td>@e.StartYear - @e.EndYear</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@e.Id" class="btn-admin-icon"><i class="fa-solid fa-pen"></i></a>
+                            <form asp-action="Delete" asp-route-id="@e.Id" method="post" class="d-inline js-confirm-delete">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn-admin-icon danger"><i class="fa-solid fa-trash"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+@model Resume
+@{ ViewData["Title"] = "Resume Management"; }
+<div class="admin-card" style="max-width:600px;">
+    @if (Model != null)
+    {
+        <p><i class="fa-solid fa-file-pdf text-gradient-icon"></i> <strong>@Model.FileName</strong></p>
+        <p class="text-muted-light">Uploaded on @Model.UploadedOn.ToString("dd MMM yyyy")</p>
+        <a asp-controller="Resume" asp-action="Download" asp-area="" class="btn btn-outline-glass mb-4"><i class="fa-solid fa-download"></i> Preview / Download Current Resume</a>
+    }
+    else
+    {
+        <p class="text-muted-light mb-4">No resume uploaded yet.</p>
+    }
+
+    <form asp-action="Upload" method="post" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+        <label class="form-label">Upload New Resume (PDF)</label>
+        <input type="file" name="resumeFile" class="form-control glass-input" accept="application/pdf" required />
+        <button type="submit" class="btn btn-gradient mt-3"><i class="fa-solid fa-upload"></i> Upload Resume</button>
+    </form>
+</div>

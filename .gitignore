@@ -1,0 +1,8 @@
+bin/
+obj/
+*.user
+.vs/
+Logs/
+wwwroot/uploads/resume/*
+!wwwroot/uploads/resume/.gitkeep
+appsettings.Development.json

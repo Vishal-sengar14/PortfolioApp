@@ -1,0 +1,31 @@
+@model List<Experience>
+@{ ViewData["Title"] = "Manage Experience"; }
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h5 class="mb-0">Work Experience</h5>
+    <a asp-action="Create" class="btn btn-gradient"><i class="fa-solid fa-plus"></i> Add Experience</a>
+</div>
+<div class="admin-card">
+    <div class="table-responsive">
+        <table class="admin-table">
+            <thead><tr><th>Company</th><th>Designation</th><th>Duration</th><th>Order</th><th>Actions</th></tr></thead>
+            <tbody>
+                @foreach (var e in Model)
+                {
+                    <tr>
+                        <td>@e.CompanyName</td>
+                        <td>@e.Designation</td>
+                        <td>@e.StartDate.ToString("MMM yyyy") - @(e.EndDate.HasValue ? e.EndDate.Value.ToString("MMM yyyy") : "Present")</td>
+                        <td>@e.DisplayOrder</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@e.Id" class="btn-admin-icon"><i class="fa-solid fa-pen"></i></a>
+                            <form asp-action="Delete" asp-route-id="@e.Id" method="post" class="d-inline js-confirm-delete">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn-admin-icon danger"><i class="fa-solid fa-trash"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

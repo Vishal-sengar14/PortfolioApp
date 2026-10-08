@@ -1,0 +1,69 @@
+@model Project
+@{ ViewData["Title"] = "Edit Project"; }
+
+<div class="admin-card">
+    <form asp-action="Edit" asp-route-id="@Model.Id" method="post" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="ImagePath" />
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+        @if (!string.IsNullOrEmpty(Model.ImagePath))
+        {
+            <img src="@Model.ImagePath" class="admin-thumb mb-3" style="width:100px;height:100px;" />
+        }
+
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label asp-for="Title" class="form-label"></label>
+                <input asp-for="Title" class="form-control glass-input" />
+            </div>
+            <div class="col-md-6">
+                <label asp-for="Status" class="form-label"></label>
+                <select asp-for="Status" class="form-select glass-input" asp-items="Html.GetEnumSelectList<ProjectStatus>()"></select>
+            </div>
+            <div class="col-12">
+                <label asp-for="ShortDescription" class="form-label"></label>
+                <textarea asp-for="ShortDescription" class="form-control glass-input" rows="2"></textarea>
+            </div>
+            <div class="col-12">
+                <label asp-for="FullDescription" class="form-label"></label>
+                <textarea asp-for="FullDescription" class="form-control glass-input" rows="4"></textarea>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="TechStack" class="form-label">Technology Stack (comma separated)</label>
+                <input asp-for="TechStack" class="form-control glass-input" />
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Features (one per line)</label>
+                <textarea asp-for="Features" class="form-control glass-input" rows="3"></textarea>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="GitHubUrl" class="form-label"></label>
+                <input asp-for="GitHubUrl" class="form-control glass-input" />
+            </div>
+            <div class="col-md-6">
+                <label asp-for="LiveDemoUrl" class="form-label"></label>
+                <input asp-for="LiveDemoUrl" class="form-control glass-input" />
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Replace Cover Image</label>
+                <input type="file" name="imageFile" class="form-control glass-input" accept="image/*" />
+            </div>
+            <div class="col-md-4">
+                <label asp-for="DisplayOrder" class="form-label"></label>
+                <input asp-for="DisplayOrder" type="number" class="form-control glass-input" />
+            </div>
+            <div class="col-md-4 d-flex align-items-end">
+                <div class="form-check"><input asp-for="IsFeatured" class="form-check-input" /><label asp-for="IsFeatured" class="form-check-label"></label></div>
+            </div>
+            <div class="col-md-4 d-flex align-items-end">
+                <div class="form-check"><input asp-for="IsActive" class="form-check-input" /><label asp-for="IsActive" class="form-check-label"></label></div>
+            </div>
+        </div>
+        <div class="mt-4 d-flex gap-2">
+            <button type="submit" class="btn btn-gradient">Update Project</button>
+            <a asp-action="Index" class="btn btn-outline-glass">Cancel</a>
+        </div>
+    </form>
+</div>

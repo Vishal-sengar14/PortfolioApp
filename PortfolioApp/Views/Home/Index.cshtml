@@ -1,0 +1,142 @@
+@model HomeViewModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<section class="hero-section">
+    <div class="hero-bg-shapes">
+        <span class="shape shape-1"></span>
+        <span class="shape shape-2"></span>
+        <span class="shape shape-3"></span>
+    </div>
+    <div class="container">
+        <div class="row align-items-center min-vh-hero">
+            <div class="col-lg-7" data-aos="fade-right">
+                <p class="hero-greeting">Hi, I'm</p>
+                <h1 class="hero-name">@(Model.Profile?.FullName ?? "Vishal Sengar")</h1>
+                <h2 class="hero-role">
+                    <span id="typed-roles"></span>
+                </h2>
+                <p class="hero-bio">@(Model.Profile?.Bio)</p>
+
+                <div class="hero-social">
+                    @foreach (var link in Model.SocialLinks)
+                    {
+                        <a href="@link.Url" target="_blank" rel="noopener" class="social-icon-btn" title="@link.PlatformName">
+                            <i class="@link.IconClass"></i>
+                        </a>
+                    }
+                </div>
+
+                <div class="hero-actions">
+                    <a asp-controller="Resume" asp-action="Download" class="btn btn-gradient"><i class="fa-solid fa-download"></i> Download Resume</a>
+                    <a asp-controller="Contact" asp-action="Index" class="btn btn-outline-glass"><i class="fa-solid fa-paper-plane"></i> Hire Me</a>
+                    <a asp-controller="Contact" asp-action="Index" class="btn btn-outline-glass"><i class="fa-solid fa-envelope"></i> Contact</a>
+                </div>
+            </div>
+            <div class="col-lg-5 text-center" data-aos="fade-left">
+                <div class="hero-image-wrap">
+                    <img src="@(string.IsNullOrEmpty(Model.Profile?.ProfileImagePath) ? "/images/myimg.jpg" : Model.Profile!.ProfileImagePath)"
+                         alt="@Model.Profile?.FullName" class="hero-image" />
+                    <div class="hero-image-ring"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="scroll-down-indicator"><i class="fa-solid fa-chevron-down"></i></div>
+</section>
+
+<section class="stats-section">
+    <div class="container">
+        <div class="row g-4 text-center">
+            <div class="col-6 col-md-3" data-aos="zoom-in">
+                <div class="stat-card">
+                    <h3 class="stat-number" data-count="@Model.ProjectsCount">0</h3>
+                    <p class="stat-label">Projects</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="100">
+                <div class="stat-card">
+                    <h3 class="stat-number" data-count="@Model.YearsOfExperience">0</h3>
+                    <p class="stat-label">Years Experience</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="200">
+                <div class="stat-card">
+                    <h3 class="stat-number" data-count="@Model.SkillsCount">0</h3>
+                    <p class="stat-label">Skills</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="300">
+                <div class="stat-card">
+                    <h3 class="stat-number" data-count="100">0</h3>
+                    <p class="stat-label">% Dedication</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@if (Model.FeaturedProjects.Any())
+{
+    <section class="section-padding">
+        <div class="container">
+            <div class="section-heading text-center" data-aos="fade-up">
+                <span class="section-tag">Featured Work</span>
+                <h2>Latest <span class="text-gradient">Projects</span></h2>
+            </div>
+            <div class="row g-4">
+                @foreach (var project in Model.FeaturedProjects)
+                {
+                    <div class="col-md-6 col-lg-4" data-aos="fade-up">
+                        <div class="project-card glass-card">
+                            <div class="project-card-img">
+                                <img src="@(string.IsNullOrEmpty(project.ImagePath) ? "/images/project-placeholder.png" : project.ImagePath)" alt="@project.Title" />
+                            </div>
+                            <div class="project-card-body">
+                                <h4>@project.Title</h4>
+                                <p>@project.ShortDescription</p>
+                                <a asp-controller="Projects" asp-action="Details" asp-route-id="@project.Id" class="project-link">View Details <i class="fa-solid fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="text-center mt-5">
+                <a asp-controller="Projects" asp-action="Index" class="btn btn-outline-glass">View All Projects</a>
+            </div>
+        </div>
+    </section>
+}
+
+@if (Model.Testimonials.Any())
+{
+    <section class="section-padding testimonial-section">
+        <div class="container">
+            <div class="section-heading text-center" data-aos="fade-up">
+                <span class="section-tag">Testimonials</span>
+                <h2>What People <span class="text-gradient">Say</span></h2>
+            </div>
+            <div class="row g-4">
+                @foreach (var t in Model.Testimonials)
+                {
+                    <div class="col-md-4" data-aos="fade-up">
+                        <div class="testimonial-card glass-card">
+                            <div class="testimonial-rating">
+                                @for (int i = 0; i < t.Rating; i++)
+                                {
+                                    <i class="fa-solid fa-star"></i>
+                                }
+                            </div>
+                            <p>"@t.Message"</p>
+                            <div class="testimonial-person">
+                                <strong>@t.PersonName</strong>
+                                <span>@t.Designation</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+}

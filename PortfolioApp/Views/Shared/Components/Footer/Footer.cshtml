@@ -1,0 +1,34 @@
+@model Profile
+
+<footer class="site-footer">
+    <div class="footer-glow"></div>
+    <div class="container">
+        <div class="row gy-4">
+            <div class="col-lg-4">
+                <h4 class="footer-brand">Vishal<span class="text-gradient">Sengar</span></h4>
+                <p class="footer-text">Software Developer crafting clean, reliable, and scalable web applications with ASP.NET Core and modern web technologies.</p>
+            </div>
+            <div class="col-lg-4">
+                <h5 class="footer-heading">Quick Links</h5>
+                <ul class="footer-links">
+                    <li><a asp-controller="About" asp-action="Index">About Me</a></li>
+                    <li><a asp-controller="Projects" asp-action="Index">Projects</a></li>
+                    <li><a asp-controller="Resume" asp-action="Index">Resume</a></li>
+                    <li><a asp-controller="Contact" asp-action="Index">Contact</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-4">
+                <h5 class="footer-heading">Get In Touch</h5>
+                <ul class="footer-contact">
+                    <li><i class="fa-solid fa-envelope"></i> <span id="footerEmail"></span> <button class="copy-btn" data-copy="vishal.sengar@example.com" title="Copy email"><i class="fa-regular fa-copy"></i></button>@Model.Email</li>
+                    <li><i class="fa-solid fa-phone"></i> <span id="footerPhone"></span> <button class="copy-btn" data-copy="+91-00000-00000" title="Copy phone"><i class="fa-regular fa-copy"></i></button>@Model.Phone</li>
+                </ul>
+            </div>
+        </div>
+        <hr class="footer-divider" />
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+            <p class="mb-0 footer-copy">&copy; @DateTime.Now.Year Vishal Sengar. All rights reserved.</p>
+            <button class="share-btn" id="sharePortfolio"><i class="fa-solid fa-share-nodes"></i> Share Portfolio</button>
+        </div>
+    </div>
+</footer>

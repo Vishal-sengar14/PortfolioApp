@@ -1,0 +1,28 @@
+@model List<Message>
+@{ ViewData["Title"] = "Contact Messages"; }
+<div class="admin-card">
+    <div class="table-responsive">
+        <table class="admin-table">
+            <thead><tr><th>Name</th><th>Email</th><th>Subject</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody>
+                @foreach (var m in Model)
+                {
+                    <tr>
+                        <td>@m.Name</td>
+                        <td>@m.Email</td>
+                        <td>@m.Subject</td>
+                        <td>@m.SentOn.ToString("dd MMM yyyy, hh:mm tt")</td>
+                        <td><span class="badge-status @(m.IsRead ? "read" : "unread")">@(m.IsRead ? "Read" : "Unread")</span></td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@m.Id" class="btn-admin-icon"><i class="fa-solid fa-eye"></i></a>
+                            <form asp-action="Delete" asp-route-id="@m.Id" method="post" class="d-inline js-confirm-delete">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn-admin-icon danger"><i class="fa-solid fa-trash"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

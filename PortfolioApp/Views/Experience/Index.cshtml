@@ -1,0 +1,43 @@
+@model List<Experience>
+@{
+    ViewData["Title"] = "Experience";
+}
+
+<section class="page-header">
+    <div class="container text-center" data-aos="fade-up">
+        <span class="section-tag">Career Path</span>
+        <h1>Work <span class="text-gradient">Experience</span></h1>
+    </div>
+</section>
+
+<section class="section-padding">
+    <div class="container">
+        <div class="timeline">
+            @foreach (var exp in Model)
+            {
+                <div class="timeline-item" data-aos="fade-up">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content glass-card">
+                        <div class="d-flex justify-content-between flex-wrap gap-2">
+                            <h5>@($"{exp.Designation} (2 Year Experience)")  </h5>
+                            <span class="timeline-date">@exp.StartDate.ToString("MMM yyyy")</span>
+                        </div>
+                        <h6 class="text-gradient">@(exp.CompanyName)</h6>
+                        <ul class="responsibilities-list">
+                            @foreach (var line in exp.Responsibilities.Split('\n', StringSplitOptions.RemoveEmptyEntries))
+                            {
+                                <li>@line.Trim()</li>
+                            }
+                        </ul>
+                        <div class="tech-badges">
+                            @foreach (var tech in exp.TechnologiesUsed.Split(',', StringSplitOptions.RemoveEmptyEntries))
+                            {
+                                <span class="tech-badge">@tech.Trim()</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

@@ -1,0 +1,39 @@
+@model Resume
+@{
+    ViewData["Title"] = "Resume";
+}
+
+<section class="page-header">
+    <div class="container text-center" data-aos="fade-up">
+        <span class="section-tag">My CV</span>
+        <h1>My <span class="text-gradient">Resume</span></h1>
+    </div>
+</section>
+
+<section class="section-padding">
+    <div class="container text-center">
+        @if (Model == null)
+        {
+            <p class="text-muted-light" data-aos="fade-up">Resume has not been uploaded yet. Please check back soon.</p>
+        }
+        else
+        {
+            <div class="glass-card p-4 mb-4" data-aos="fade-up">
+                <div class="ratio ratio-4x3">
+                    <iframe src="@Url.Action("Preview")" title="Resume Preview" class="rounded-3 border-0"></iframe>
+                </div>
+            </div>
+            <a asp-action="Download" class="btn btn-gradient" id="downloadResumeBtn"><i class="fa-solid fa-download"></i> Download Resume</a>
+            <button class="btn btn-outline-glass" id="printResumeBtn"><i class="fa-solid fa-print"></i> Print Resume</button>
+        }
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        document.getElementById('printResumeBtn')?.addEventListener('click', function () {
+            const frame = document.querySelector('iframe');
+            if (frame) { frame.contentWindow.focus(); frame.contentWindow.print(); }
+        });
+    </script>
+}

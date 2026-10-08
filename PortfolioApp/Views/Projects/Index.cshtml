@@ -1,0 +1,81 @@
+@model ProjectListViewModel
+@{
+    ViewData["Title"] = "Projects";
+}
+
+<section class="page-header">
+    <div class="container text-center" data-aos="fade-up">
+        <span class="section-tag">Portfolio</span>
+        <h1>My <span class="text-gradient">Projects</span></h1>
+    </div>
+</section>
+
+<section class="section-padding">
+    <div class="container">
+        <form asp-action="Index" method="get" class="project-filter-bar" data-aos="fade-up">
+            <div class="row g-3 align-items-center">
+                <div class="col-md-6">
+                    <input type="text" name="search" value="@Model.SearchTerm" class="form-control glass-input" placeholder="Search projects..." />
+                </div>
+                <div class="col-md-4">
+                    <select name="tech" class="form-select glass-input" onchange="this.form.submit()">
+                        <option value="">All Technologies</option>
+                        @foreach (var tech in Model.AllTechnologies)
+                        {
+                            <option value="@tech" selected="@(tech == Model.SelectedTechnology)">@tech</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-gradient w-100">Filter</button>
+                </div>
+            </div>
+        </form>
+
+        @if (!Model.Projects.Any())
+        {
+            <div class="text-center py-5" data-aos="fade-up">
+                <p class="text-muted-light">No projects found matching your criteria.</p>
+            </div>
+        }
+
+        <div class="row g-4 mt-2">
+            @foreach (var project in Model.Projects)
+            {
+                <div class="col-md-6 col-lg-4" data-aos="fade-up">
+                    <div class="project-card glass-card">
+                        <div class="project-card-img">
+                            <img src="@(string.IsNullOrEmpty(project.ImagePath) ? "" : project.ImagePath)" alt="@project.Title" />
+                            <span class="project-status-badge">@project.Status</span>
+                        </div>
+                        <div class="project-card-body">
+                            <h4>@project.Title</h4>
+                            <p>@project.ShortDescription</p>
+                            <div class="tech-badges">
+                                @foreach (var tech in project.TechStack.Split(',', StringSplitOptions.RemoveEmptyEntries).Take(3))
+                                {
+                                    <span class="tech-badge">@tech.Trim()</span>
+                                }
+                            </div>
+                            <a asp-controller="Projects" asp-action="Details" asp-route-id="@project.Id" class="project-link">View Details <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        @if (Model.TotalPages > 1)
+        {
+            <nav class="mt-5" aria-label="Project pagination">
+                <ul class="pagination justify-content-center custom-pagination">
+                    @for (int i = 1; i <= Model.TotalPages; i++)
+                    {
+                        <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                            <a class="page-link" asp-action="Index" asp-route-page="@i" asp-route-tech="@Model.SelectedTechnology" asp-route-search="@Model.SearchTerm">@i</a>
+                        </li>
+                    }
+                </ul>
+            </nav>
+        }
+    </div>
+</section>

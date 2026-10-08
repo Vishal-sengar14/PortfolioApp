@@ -1,0 +1,86 @@
+@model DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="row g-4 mb-4">
+    <div class="col-md-4 col-lg-3">
+        <div class="dashboard-stat-card">
+            <div class="dashboard-stat-icon"><i class="fa-solid fa-diagram-project"></i></div>
+            <div class="dashboard-stat-value">@Model.TotalProjects</div>
+            <div class="dashboard-stat-label">Projects</div>
+        </div>
+    </div>
+    <div class="col-md-4 col-lg-3">
+        <div class="dashboard-stat-card">
+            <div class="dashboard-stat-icon"><i class="fa-solid fa-code"></i></div>
+            <div class="dashboard-stat-value">@Model.TotalSkills</div>
+            <div class="dashboard-stat-label">Skills</div>
+        </div>
+    </div>
+    <div class="col-md-4 col-lg-3">
+        <div class="dashboard-stat-card">
+            <div class="dashboard-stat-icon"><i class="fa-solid fa-briefcase"></i></div>
+            <div class="dashboard-stat-value">@Model.TotalExperiences</div>
+            <div class="dashboard-stat-label">Experience Entries</div>
+        </div>
+    </div>
+    <div class="col-md-4 col-lg-3">
+        <div class="dashboard-stat-card">
+            <div class="dashboard-stat-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+            <div class="dashboard-stat-value">@Model.TotalEducations</div>
+            <div class="dashboard-stat-label">Education Entries</div>
+        </div>
+    </div>
+    <div class="col-md-4 col-lg-3">
+        <div class="dashboard-stat-card">
+            <div class="dashboard-stat-icon"><i class="fa-solid fa-envelope"></i></div>
+            <div class="dashboard-stat-value">@Model.TotalMessages</div>
+            <div class="dashboard-stat-label">Total Messages (@Model.UnreadMessages unread)</div>
+        </div>
+    </div>
+    <div class="col-md-4 col-lg-3">
+        <div class="dashboard-stat-card">
+            <div class="dashboard-stat-icon"><i class="fa-solid fa-award"></i></div>
+            <div class="dashboard-stat-value">@Model.TotalCertificates</div>
+            <div class="dashboard-stat-label">Certificates</div>
+        </div>
+    </div>
+    <div class="col-md-4 col-lg-3">
+        <div class="dashboard-stat-card">
+            <div class="dashboard-stat-icon"><i class="fa-solid fa-comment-dots"></i></div>
+            <div class="dashboard-stat-value">@Model.TotalTestimonials</div>
+            <div class="dashboard-stat-label">Testimonials</div>
+        </div>
+    </div>
+</div>
+
+<div class="admin-card">
+    <h5 class="mb-3">Content Overview</h5>
+    <canvas id="dashboardChart" height="90"></canvas>
+</div>
+
+@section Scripts {
+    <script>
+        const ctx = document.getElementById('dashboardChart');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [@Html.Raw(string.Join(",", Model.ChartData.Select(c => $"'{c.Label}'")))],
+                datasets: [{
+                    label: 'Count',
+                    data: [@Html.Raw(string.Join(",", Model.ChartData.Select(c => c.Value)))],
+                    backgroundColor: 'rgba(79, 124, 255, 0.6)',
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { grid: { display: false }, ticks: { color: '#9aa3bd' } },
+                    y: { grid: { color: 'rgba(255,255,255,0.06)' }, ticks: { color: '#9aa3bd' } }
+                }
+            }
+        });
+    </script>
+}
